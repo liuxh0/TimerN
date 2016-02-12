@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i3O-V2-3cc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Select Timer Duration View Controller-->
+        <scene sceneID="DCz-XD-R0g">
+            <objects>
+                <viewController id="i3O-V2-3cc" customClass="SelectTimerDuration_ViewController" customModule="TimerN" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OEL-5O-DkK"/>
+                        <viewControllerLayoutGuide type="bottom" id="vF9-5l-OvP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dam-y1-90g">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvt-Gd-aaJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="Gp4-Rt-SXx"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="cancel" id="IB0-of-LZH">
+                                        <connections>
+                                            <action selector="cancel:" destination="i3O-V2-3cc" id="FnW-8b-dXY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="YhM-LB-OBD"/>
+                                    <barButtonItem title="Save &amp; Run" style="done" id="Y9L-o6-Hag">
+                                        <connections>
+                                            <segue destination="xRm-MD-LJf" kind="unwind" identifier="saveAndRun" unwindAction="unwindFromSelectTimerDuration:" id="rT5-L7-R14"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iCE-1v-hMx"/>
+                                    <barButtonItem style="done" systemItem="save" id="R1N-6b-ItG">
+                                        <connections>
+                                            <segue destination="xRm-MD-LJf" kind="unwind" identifier="" unwindAction="unwindFromSelectTimerDuration:" id="BAK-Yb-cvZ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Nbf-KN-z8G">
+                                <rect key="frame" x="20" y="290" width="560" height="21"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqB-Fb-ClS">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHx-pl-uPc">
+                                        <rect key="frame" x="187" y="0.0" width="187" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwF-bL-0zf">
+                                        <rect key="frame" x="374" y="0.0" width="187" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YSS-0u-EA8">
+                                <rect key="frame" x="20" y="192" width="560" height="216"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YSS-0u-EA8" firstAttribute="centerY" secondItem="dam-y1-90g" secondAttribute="centerY" id="1Zk-hp-TuT"/>
+                            <constraint firstItem="YSS-0u-EA8" firstAttribute="leading" secondItem="dam-y1-90g" secondAttribute="leadingMargin" id="36d-ke-q2x"/>
+                            <constraint firstItem="zvt-Gd-aaJ" firstAttribute="leading" secondItem="dam-y1-90g" secondAttribute="leading" id="5Pg-LA-95V"/>
+                            <constraint firstAttribute="trailing" secondItem="zvt-Gd-aaJ" secondAttribute="trailing" id="Fpc-vM-jkH"/>
+                            <constraint firstItem="zvt-Gd-aaJ" firstAttribute="top" secondItem="dam-y1-90g" secondAttribute="topMargin" id="HL0-hB-0AX"/>
+                            <constraint firstItem="Nbf-KN-z8G" firstAttribute="centerX" secondItem="dam-y1-90g" secondAttribute="centerX" id="N4W-Xk-iGz"/>
+                            <constraint firstItem="YSS-0u-EA8" firstAttribute="trailing" secondItem="dam-y1-90g" secondAttribute="trailingMargin" id="Rd9-PB-TFP"/>
+                            <constraint firstItem="YSS-0u-EA8" firstAttribute="centerX" secondItem="dam-y1-90g" secondAttribute="centerX" id="TrF-K2-OhA"/>
+                            <constraint firstItem="Nbf-KN-z8G" firstAttribute="trailing" secondItem="dam-y1-90g" secondAttribute="trailingMargin" id="vce-ly-I0I"/>
+                            <constraint firstItem="Nbf-KN-z8G" firstAttribute="leading" secondItem="dam-y1-90g" secondAttribute="leadingMargin" id="vvc-8F-s9G"/>
+                            <constraint firstItem="Nbf-KN-z8G" firstAttribute="centerY" secondItem="dam-y1-90g" secondAttribute="centerY" id="yiC-aM-6dF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="PickerView_timerDuration" destination="YSS-0u-EA8" id="UJg-UK-JfS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3QO-m9-Jvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xRm-MD-LJf" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="179" y="389"/>
+        </scene>
+    </scenes>
+</document>

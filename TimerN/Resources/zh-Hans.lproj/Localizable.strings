@@ -1,0 +1,21 @@
+/*
+ StringResources.strings
+ TimerN
+ 
+ Created by Xinhu Liu on 05/02/16.
+ Copyright © 2016 Xinhu Liu. All rights reserved.
+ */
+
+"Rename" = "重命名";
+"Details..." = "详情...";
+"Cancel" = "取消";
+
+"Start" = "开始";
+"Pause" = "暂停";
+"Resume" = "继续";
+"Reset" = "重置";
+
+"READY" = "就绪";
+"RUNNING" = "运行中";
+"PAUSED" = "暂停中";
+"FINISHED" = "已停止";

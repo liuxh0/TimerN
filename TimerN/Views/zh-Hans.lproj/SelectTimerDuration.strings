@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "h"; ObjectID = "NqB-Fb-ClS"; */
+"NqB-Fb-ClS.text" = "小时";
+
+/* Class = "UIBarButtonItem"; title = "Save & Run"; ObjectID = "Y9L-o6-Hag"; */
+"Y9L-o6-Hag.title" = "保存后运行";
+
+/* Class = "UILabel"; text = "m"; ObjectID = "cHx-pl-uPc"; */
+"cHx-pl-uPc.text" = "分";
+
+/* Class = "UILabel"; text = "s"; ObjectID = "uwF-bL-0zf"; */
+"uwF-bL-0zf.text" = "秒";
