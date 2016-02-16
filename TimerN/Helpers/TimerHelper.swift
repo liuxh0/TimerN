@@ -1,5 +1,5 @@
 //
-//  TimerUIHelper.swift
+//  TimerHelper.swift
 //  TimerN
 //
 //  Created by Xinhu Liu on 26/01/16.
@@ -8,25 +8,20 @@
 
 import UIKit
 
-class TimerUIHelper {
+class TimerHelper {
     
-    //
-    // MARK: Property
-    
-    private static let ArchiveURLOfTimers = NSFileManager()
+    private static let _archiveURLOfTimers = NSFileManager()
         .URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
         .URLByAppendingPathComponent("timers")
-    
-    //
-    // MARK: Method
+
     class func saveTimers(timers: [Timer]) {
         
-        NSKeyedArchiver.archiveRootObject(timers, toFile: ArchiveURLOfTimers.path!)
+        NSKeyedArchiver.archiveRootObject(timers, toFile: _archiveURLOfTimers.path!)
     }
     
     class func loadTimers() -> [Timer] {
         
-        let timers = NSKeyedUnarchiver.unarchiveObjectWithFile(ArchiveURLOfTimers.path!) as? [Timer]
+        let timers = NSKeyedUnarchiver.unarchiveObjectWithFile(_archiveURLOfTimers.path!) as? [Timer]
         if timers != nil {
             return timers!
         }

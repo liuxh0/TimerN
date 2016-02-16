@@ -58,7 +58,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqB-GC-ryi">
                                                 <rect key="frame" x="0.0" y="0.0" width="230" height="147"/>
-                                                <state key="normal" title="重置"/>
+                                                <state key="normal" title="Reset"/>
                                                 <connections>
                                                     <action selector="didTouchLeftButton:" destination="44Z-hV-3ia" eventType="touchUpInside" id="BRF-u3-gdv"/>
                                                 </connections>

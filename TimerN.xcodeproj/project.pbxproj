@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C928DEA1C73B67E0094A2AA /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C928DE81C73B67E0094A2AA /* NotificationHelper.swift */; };
+		5C928DEB1C73B67E0094A2AA /* TimerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C928DE91C73B67E0094A2AA /* TimerHelper.swift */; };
+		5C928DED1C73BF070094A2AA /* TimerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C928DEC1C73BF070094A2AA /* TimerTest.swift */; };
 		5CA2FF401C6E63AC00EEE844 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5CA2FF421C6E63AC00EEE844 /* Localizable.strings */; };
 		5CA2FF441C6E64F200EEE844 /* Timers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA2FF461C6E64F200EEE844 /* Timers.storyboard */; };
 		5CA2FF471C6E651800EEE844 /* SelectTimerDuration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA2FF491C6E651800EEE844 /* SelectTimerDuration.storyboard */; };
@@ -17,7 +20,6 @@
 		5CD70D341C6E5FAE00EF22EB /* TimerNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D331C6E5FAE00EF22EB /* TimerNTests.swift */; };
 		5CD70D3F1C6E5FAE00EF22EB /* TimerNUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D3E1C6E5FAE00EF22EB /* TimerNUITests.swift */; };
 		5CD70D501C6E618900EF22EB /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D4F1C6E618900EF22EB /* Timer.swift */; };
-		5CD70D521C6E619600EF22EB /* TimerUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D511C6E619600EF22EB /* TimerUIHelper.swift */; };
 		5CD70D5A1C6E61A100EF22EB /* SelectTimerDuration_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D531C6E61A100EF22EB /* SelectTimerDuration_ViewController.swift */; };
 		5CD70D5C1C6E61A100EF22EB /* TimerDetail_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D551C6E61A100EF22EB /* TimerDetail_ViewController.swift */; };
 		5CD70D5E1C6E61A100EF22EB /* Timers_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD70D571C6E61A100EF22EB /* Timers_TableViewCell.swift */; };
@@ -42,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C928DE81C73B67E0094A2AA /* NotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationHelper.swift; path = Helpers/NotificationHelper.swift; sourceTree = "<group>"; };
+		5C928DE91C73B67E0094A2AA /* TimerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerHelper.swift; path = Helpers/TimerHelper.swift; sourceTree = "<group>"; };
+		5C928DEC1C73BF070094A2AA /* TimerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerTest.swift; path = Utilities/TimerTest.swift; sourceTree = "<group>"; };
 		5CA2FF3F1C6E637200EEE844 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		5CA2FF411C6E63AC00EEE844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5CA2FF431C6E63B200EEE844 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -62,7 +67,6 @@
 		5CD70D3E1C6E5FAE00EF22EB /* TimerNUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNUITests.swift; sourceTree = "<group>"; };
 		5CD70D401C6E5FAE00EF22EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CD70D4F1C6E618900EF22EB /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timer.swift; path = Utilities/Timer.swift; sourceTree = "<group>"; };
-		5CD70D511C6E619600EF22EB /* TimerUIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerUIHelper.swift; path = UIHelpers/TimerUIHelper.swift; sourceTree = "<group>"; };
 		5CD70D531C6E61A100EF22EB /* SelectTimerDuration_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectTimerDuration_ViewController.swift; path = Views/SelectTimerDuration_ViewController.swift; sourceTree = "<group>"; };
 		5CD70D551C6E61A100EF22EB /* TimerDetail_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimerDetail_ViewController.swift; path = Views/TimerDetail_ViewController.swift; sourceTree = "<group>"; };
 		5CD70D571C6E61A100EF22EB /* Timers_TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timers_TableViewCell.swift; path = Views/Timers_TableViewCell.swift; sourceTree = "<group>"; };
@@ -123,7 +127,7 @@
 				5CD70D2A1C6E5FAE00EF22EB /* Info.plist */,
 				5CD70D611C6E627E00EF22EB /* Resources */,
 				5CD70D4E1C6E609F00EF22EB /* Views */,
-				5CD70D4D1C6E609300EF22EB /* UIHelpers */,
+				5CD70D4D1C6E609300EF22EB /* Helpers */,
 				5CD70D4C1C6E603300EF22EB /* Utilities */,
 			);
 			path = TimerN;
@@ -151,16 +155,18 @@
 			isa = PBXGroup;
 			children = (
 				5CD70D4F1C6E618900EF22EB /* Timer.swift */,
+				5C928DEC1C73BF070094A2AA /* TimerTest.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		5CD70D4D1C6E609300EF22EB /* UIHelpers */ = {
+		5CD70D4D1C6E609300EF22EB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				5CD70D511C6E619600EF22EB /* TimerUIHelper.swift */,
+				5C928DE81C73B67E0094A2AA /* NotificationHelper.swift */,
+				5C928DE91C73B67E0094A2AA /* TimerHelper.swift */,
 			);
-			name = UIHelpers;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		5CD70D4E1C6E609F00EF22EB /* Views */ = {
@@ -253,6 +259,7 @@
 				TargetAttributes = {
 					5CD70D1A1C6E5FAE00EF22EB = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = P4PTBASVDS;
 					};
 					5CD70D2E1C6E5FAE00EF22EB = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -321,12 +328,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CD70D5A1C6E61A100EF22EB /* SelectTimerDuration_ViewController.swift in Sources */,
-				5CD70D521C6E619600EF22EB /* TimerUIHelper.swift in Sources */,
 				5CD70D1F1C6E5FAE00EF22EB /* AppDelegate.swift in Sources */,
 				5CD70D5E1C6E61A100EF22EB /* Timers_TableViewCell.swift in Sources */,
 				5CD70D501C6E618900EF22EB /* Timer.swift in Sources */,
 				5CD70D5F1C6E61A100EF22EB /* Timers_TableViewController.swift in Sources */,
+				5C928DEB1C73B67E0094A2AA /* TimerHelper.swift in Sources */,
 				5CD70D5C1C6E61A100EF22EB /* TimerDetail_ViewController.swift in Sources */,
+				5C928DEA1C73B67E0094A2AA /* NotificationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CD70D341C6E5FAE00EF22EB /* TimerNTests.swift in Sources */,
+				5C928DED1C73BF070094A2AA /* TimerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,10 +507,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimerN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liu.xinhu.TimerN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -509,10 +521,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TimerN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liu.xinhu.TimerN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

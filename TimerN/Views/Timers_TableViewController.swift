@@ -15,7 +15,7 @@ class Timers_TableViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem()
         
-        _timers = TimerUIHelper.loadTimers()
+        _timers = TimerHelper.loadTimers()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,7 +59,7 @@ class Timers_TableViewController: UITableViewController {
             let timer = sourceVC.getResult()
             
             let newIndexPath = NSIndexPath(forRow: _timers.count, inSection: 0)
-            _timers.append(timer); TimerUIHelper.saveTimers(_timers)
+            _timers.append(timer); TimerHelper.saveTimers(_timers)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
@@ -110,7 +110,7 @@ class Timers_TableViewController: UITableViewController {
         
         let operateAction = UIAlertAction(title: getOperateActionTitle(timerStatus), style: .Destructive) { (aa: UIAlertAction) -> Void in
             self.operateTimer(timer, originalTimerStatus: timerStatus)
-            TimerUIHelper.saveTimers(self._timers)
+            TimerHelper.saveTimers(self._timers)
         }
         alertController.addAction(operateAction)
         
@@ -166,7 +166,7 @@ class Timers_TableViewController: UITableViewController {
             let newName = nameTextField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             if (newName != "") {
                 timer.name = nameTextField!.text!
-                TimerUIHelper.saveTimers(self._timers)
+                TimerHelper.saveTimers(self._timers)
             }
         })
         renameAC.addAction(renameAction)
@@ -191,7 +191,7 @@ class Timers_TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
-            _timers.removeAtIndex(indexPath.row); TimerUIHelper.saveTimers(_timers)
+            _timers.removeAtIndex(indexPath.row); TimerHelper.saveTimers(_timers)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }

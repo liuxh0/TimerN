@@ -69,7 +69,7 @@ class TimerDetail_ViewController: UIViewController {
             if (newName != "") {
                 self._timer!.name = nameTextField!.text!
                 self.navigationItem.title = self._timer!.name
-                TimerUIHelper.saveTimers(self._timers!)
+                TimerHelper.saveTimers(self._timers!)
             }
         })
         renameAC.addAction(renameAction)
@@ -85,7 +85,7 @@ class TimerDetail_ViewController: UIViewController {
         
         _timer!.reset()
         
-        TimerUIHelper.saveTimers(_timers!)
+        TimerHelper.saveTimers(_timers!)
     }
     
     @IBAction func didTouchRightButton(sender: UIButton) {
@@ -99,7 +99,7 @@ class TimerDetail_ViewController: UIViewController {
         default: break
         }
         
-        TimerUIHelper.saveTimers(_timers!)
+        TimerHelper.saveTimers(_timers!)
     }
     
     //
@@ -107,13 +107,13 @@ class TimerDetail_ViewController: UIViewController {
     
     func updateContent() {
         
-        let leftTime = _timer!.getLeftMinuteSecondInString()
-        Label_minute.text = leftTime.minutes
-        Label_second.text = leftTime.seconds
+        let leftMinutesSeconds = Timer.convertSecondsToMinutesSeconds(_timer!.getLeftSeconds())
+        Label_minute.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.minutes)
+        Label_second.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.seconds)
         
         let timerStatus = _timer!.getStatus()
-        Label_status.text = TimerUIHelper.getTextFromStatus(timerStatus)
-        Label_status.textColor = TimerUIHelper.getTextColorFromStatus(timerStatus)
+        Label_status.text = TimerHelper.getTextFromStatus(timerStatus)
+        Label_status.textColor = TimerHelper.getTextColorFromStatus(timerStatus)
         
         switch timerStatus {
         case .Running, .Paused, .Finished:

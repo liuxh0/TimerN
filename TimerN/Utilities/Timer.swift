@@ -10,46 +10,72 @@ import Foundation
 
 public class Timer: NSObject, NSCoding {
     
-    // MARK: Property
+    // MARK: - Properties
     
     public var name: String
-    public private(set) var durationInSecond: Int
+    public private(set) var durationInSeconds: Int
     
     private var _internalStatus: TimerInternalStatus
     private var _startTime: NSDate?
     private var _leftSecondsSincePause: Int
     
-    
-    // MARK: Initializer
+    //
+    // MARK: - Initializers
     
     public init(name: String, durationInSecond: Int) {
         
         self.name = name
         if durationInSecond >= 0 {
-            self.durationInSecond = durationInSecond
+            self.durationInSeconds = durationInSecond
         }
         else {
-            self.durationInSecond = 0
+            self.durationInSeconds = 0
         }
         
         _internalStatus = .Reset
         _startTime = nil
-        _leftSecondsSincePause = self.durationInSecond
+        _leftSecondsSincePause = self.durationInSeconds
     }
     
+    //
+    // MARK: - Class methods
     
-    // MARK: Method
+    public class func convertHoursMinutesSecondsToSeconds(hms: (hours: Int, minutes: Int, seconds: Int)) -> Int {
+        
+        return hms.hours * 60 * 60 + hms.minutes * 60 + hms.seconds
+    }
+    
+    public class func convertSecondsToMinutesSeconds(seconds: Int) -> (minutes: Int, seconds: Int) {
+        
+        return ((seconds - seconds % 60) / 60, seconds % 60)
+    }
+    
+    public class func convertSecondsToHoursMinutesSeconds(seconds: Int) -> (hours: Int, minutes: Int, seconds: Int) {
+        
+        let minutesAndSeconds = convertSecondsToMinutesSeconds(seconds)
+        let minutes = minutesAndSeconds.minutes
+        
+        return ((minutes - minutes % 60) / 60, minutes % 60, minutesAndSeconds.seconds)
+    }
+    
+    public class func convertNumberToTwoDigitString(number: Int) -> String {
+        
+        return number < 10 ? "0\(number)" : "\(number)"
+    }
+    
+    //
+    // MARK: - Methods
     
     public func run() {
         
         let currentStatus = getStatus()
         if currentStatus == .Reset || currentStatus == .Paused {
             _internalStatus = .RunningOrFinished
-            _startTime = Timer.getCurrentTime()
+            _startTime = getCurrentTime()
         }
     }
     
-    private static func getCurrentTime() -> NSDate {
+    private func getCurrentTime() -> NSDate {
         
         return NSDate(timeIntervalSinceNow: 0)
     }
@@ -69,7 +95,7 @@ public class Timer: NSObject, NSCoding {
         
         _internalStatus = .Reset
         _startTime = nil
-        _leftSecondsSincePause = durationInSecond
+        _leftSecondsSincePause = durationInSeconds
     }
     
     public func getStatus() -> TimerStatus {
@@ -89,56 +115,7 @@ public class Timer: NSObject, NSCoding {
         }
     }
     
-    public func getDuration() -> (hours: Int, minutes: Int, seconds: Int) {
-        
-        let seconds = durationInSecond % 60
-        let leftMinutes = (durationInSecond - seconds) / 60
-        let minutes = leftMinutes % 60
-        let hours = (leftMinutes - minutes) / 60
-        
-        return (hours, minutes, seconds)
-    }
-    
-    public func getLeftHourMinuteSecondInString() -> (hours: String, minutes: String, seconds: String) {
-        
-        let leftSeconds = getLeftSeconds()
-        
-        let seconds = leftSeconds % 60
-        var secondString = String(seconds)
-        if seconds < 10 {
-            secondString = "0" + secondString
-        }
-        
-        let leftMinutes = (leftSeconds - seconds) / 60
-        let minutes = (leftMinutes) % 60
-        var minuteString = String(minutes)
-        if minutes < 10 {
-            minuteString = "0" + minuteString
-        }
-        
-        let leftHours = (leftMinutes - minutes) / 60
-        let hourString = String(leftHours)
-        
-        return (hourString, minuteString, secondString)
-    }
-    
-    public func getLeftMinuteSecondInString() -> (minutes: String, seconds: String) {
-        
-        let leftSeconds = getLeftSeconds()
-        
-        let seconds = leftSeconds % 60
-        var secondString = String(seconds)
-        if seconds < 10 {
-            secondString = "0" + secondString
-        }
-        
-        let leftMinutes = (leftSeconds - seconds) / 60
-        let minuteString = String(leftMinutes)
-        
-        return (minuteString, secondString)
-    }
-    
-    private func getLeftSeconds() -> Int {
+    public func getLeftSeconds() -> Int {
         
         var leftSeconds: Int = 0
         
@@ -174,7 +151,7 @@ public class Timer: NSObject, NSCoding {
     public func encodeWithCoder(aCoder: NSCoder) {
         
         aCoder.encodeObject(name, forKey: PropertyKey.name)
-        aCoder.encodeObject(durationInSecond, forKey: PropertyKey.durationInSecond)
+        aCoder.encodeObject(durationInSeconds, forKey: PropertyKey.durationInSecond)
         aCoder.encodeObject(_internalStatus.rawValue, forKey: PropertyKey.internalStatus)
         aCoder.encodeObject(_startTime, forKey: PropertyKey.startTime)
         aCoder.encodeObject(_leftSecondsSincePause, forKey: PropertyKey.leftSecondsSincePause)

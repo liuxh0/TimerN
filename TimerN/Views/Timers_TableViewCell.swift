@@ -39,17 +39,17 @@ class Timers_TableViewCell: UITableViewCell {
     func prepareUIForTimer(timer: Timer) {
     
         let status = timer.getStatus()
-        let leftTime = timer.getLeftMinuteSecondInString()
+        let leftMinutesSeconds = Timer.convertSecondsToMinutesSeconds(timer.getLeftSeconds())
         
         Label_timerName.text = timer.name
-        Label_timerMiniute.text = leftTime.minutes
-        Label_timerSecond.text = leftTime.seconds
+        Label_timerMiniute.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.minutes)
+        Label_timerSecond.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.seconds)
         setTimerStatusLabel(status, label: Label_timerStatus)
     }
     
     private func setTimerStatusLabel(status: TimerStatus, label: UILabel) {
         
-        label.text = TimerUIHelper.getTextFromStatus(status)
-        label.textColor = TimerUIHelper.getTextColorFromStatus(status)
+        label.text = TimerHelper.getTextFromStatus(status)
+        label.textColor = TimerHelper.getTextColorFromStatus(status)
     }
 }
