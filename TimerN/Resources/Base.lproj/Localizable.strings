@@ -2,7 +2,7 @@
   StringResources.strings
   TimerN
 
-  Created by Xinhu Liu on 05/02/16.
+  Created by Xinhu Liu on 05.02.16.
   Copyright © 2016 Xinhu Liu. All rights reserved.
 */
 
@@ -19,3 +19,5 @@
 "RUNNING" = "RUNNING";
 "PAUSED" = "PAUSED";
 "FINISHED" = "FINISHED";
+
+"Timer '%@' runs out." = "Timer '%@' runs out.";

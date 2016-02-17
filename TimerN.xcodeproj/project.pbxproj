@@ -163,8 +163,8 @@
 		5CD70D4D1C6E609300EF22EB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				5C928DE81C73B67E0094A2AA /* NotificationHelper.swift */,
 				5C928DE91C73B67E0094A2AA /* TimerHelper.swift */,
+				5C928DE81C73B67E0094A2AA /* NotificationHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";

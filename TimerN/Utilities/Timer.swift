@@ -22,11 +22,11 @@ public class Timer: NSObject, NSCoding {
     //
     // MARK: - Initializers
     
-    public init(name: String, durationInSecond: Int) {
+    public init(name: String, durationInSeconds: Int) {
         
         self.name = name
-        if durationInSecond >= 0 {
-            self.durationInSeconds = durationInSecond
+        if durationInSeconds >= 0 {
+            self.durationInSeconds = durationInSeconds
         }
         else {
             self.durationInSeconds = 0
@@ -162,8 +162,8 @@ public class Timer: NSObject, NSCoding {
         let name = aDecoder.decodeObjectForKey(PropertyKey.name) as! String
         let durationInSecond = aDecoder.decodeObjectForKey(PropertyKey.durationInSecond) as! Int
         
-        self.init(name: name, durationInSecond: durationInSecond)
-                
+        self.init(name: name, durationInSeconds: durationInSecond)
+        
         self._internalStatus = TimerInternalStatus(rawValue: aDecoder.decodeObjectForKey(PropertyKey.internalStatus) as! Int)!
         self._startTime = aDecoder.decodeObjectForKey(PropertyKey.startTime) as! NSDate?
         self._leftSecondsSincePause = aDecoder.decodeObjectForKey(PropertyKey.leftSecondsSincePause) as! Int

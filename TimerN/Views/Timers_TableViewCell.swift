@@ -2,7 +2,7 @@
 //  Timers_TableViewCell.swift
 //  TimerN
 //
-//  Created by Xinhu Liu on 20/01/16.
+//  Created by Xinhu Liu on 20.01.16.
 //  Copyright © 2016 Xinhu Liu. All rights reserved.
 //
 

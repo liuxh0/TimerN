@@ -2,7 +2,7 @@
 //  SelectTimerDuration_ViewController.swift
 //  TimerN
 //
-//  Created by Xinhu Liu on 27/01/16.
+//  Created by Xinhu Liu on 27.01.16.
 //  Copyright © 2016 Xinhu Liu. All rights reserved.
 //
 
@@ -101,12 +101,12 @@ class SelectTimerDuration_ViewController: UIViewController, UIPickerViewDataSour
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let hours = PickerView_timerDuration.selectedRowInComponent(0)
-        let minutes = PickerView_timerDuration.selectedRowInComponent(1) % 60
-        let seconds = PickerView_timerDuration.selectedRowInComponent(2) % 60
+        let hms = (
+            hours: PickerView_timerDuration.selectedRowInComponent(0),
+            minutes: PickerView_timerDuration.selectedRowInComponent(1) % 60,
+            seconds: PickerView_timerDuration.selectedRowInComponent(2) % 60)
         
-        let durationInSecond = hours * 60 * 60 + minutes * 60 + seconds
-        _timer = Timer(name: "Timer", durationInSecond: durationInSecond)
+        _timer = Timer(name: "Timer", durationInSeconds: Timer.convertHoursMinutesSecondsToSeconds(hms))
         
         if segue.identifier == "saveAndRun" {
             _timer!.run()

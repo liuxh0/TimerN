@@ -2,7 +2,7 @@
 //  TimerDetail_ViewController.swift
 //  TimerN
 //
-//  Created by Xinhu Liu on 26/01/16.
+//  Created by Xinhu Liu on 26.01.16.
 //  Copyright © 2016 Xinhu Liu. All rights reserved.
 //
 
@@ -70,6 +70,7 @@ class TimerDetail_ViewController: UIViewController {
                 self._timer!.name = nameTextField!.text!
                 self.navigationItem.title = self._timer!.name
                 TimerHelper.saveTimers(self._timers!)
+                NotificationHelper.setLocalNotifications(self._timers!)
             }
         })
         renameAC.addAction(renameAction)
@@ -86,6 +87,7 @@ class TimerDetail_ViewController: UIViewController {
         _timer!.reset()
         
         TimerHelper.saveTimers(_timers!)
+        NotificationHelper.setLocalNotifications(_timers!)
     }
     
     @IBAction func didTouchRightButton(sender: UIButton) {
@@ -100,6 +102,7 @@ class TimerDetail_ViewController: UIViewController {
         }
         
         TimerHelper.saveTimers(_timers!)
+        NotificationHelper.setLocalNotifications(_timers!)
     }
     
     //

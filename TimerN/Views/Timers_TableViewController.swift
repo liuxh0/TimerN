@@ -2,7 +2,7 @@
 //  Timers_TableViewController.swift
 //  TimerN
 //
-//  Created by Xinhu Liu on 20/01/16.
+//  Created by Xinhu Liu on 20.01.16.
 //  Copyright © 2016 Xinhu Liu. All rights reserved.
 //
 
@@ -59,7 +59,9 @@ class Timers_TableViewController: UITableViewController {
             let timer = sourceVC.getResult()
             
             let newIndexPath = NSIndexPath(forRow: _timers.count, inSection: 0)
-            _timers.append(timer); TimerHelper.saveTimers(_timers)
+            _timers.append(timer)
+            TimerHelper.saveTimers(_timers)
+            NotificationHelper.setLocalNotifications(_timers)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
@@ -111,6 +113,7 @@ class Timers_TableViewController: UITableViewController {
         let operateAction = UIAlertAction(title: getOperateActionTitle(timerStatus), style: .Destructive) { (aa: UIAlertAction) -> Void in
             self.operateTimer(timer, originalTimerStatus: timerStatus)
             TimerHelper.saveTimers(self._timers)
+            NotificationHelper.setLocalNotifications(self._timers)
         }
         alertController.addAction(operateAction)
         
@@ -145,10 +148,14 @@ class Timers_TableViewController: UITableViewController {
     private func operateTimer(timer: Timer, originalTimerStatus: TimerStatus) {
         
         switch originalTimerStatus {
-        case .Reset:    timer.run()
-        case .Running:  timer.pause()
-        case .Paused:   timer.run()
-        case .Finished: timer.reset()
+        case .Reset:
+            timer.run()
+        case .Running:
+            timer.pause()
+        case .Paused:
+            timer.run()
+        case .Finished:
+            timer.reset()
         }
     }
     
@@ -167,6 +174,7 @@ class Timers_TableViewController: UITableViewController {
             if (newName != "") {
                 timer.name = nameTextField!.text!
                 TimerHelper.saveTimers(self._timers)
+                NotificationHelper.setLocalNotifications(self._timers)
             }
         })
         renameAC.addAction(renameAction)
@@ -191,7 +199,9 @@ class Timers_TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
-            _timers.removeAtIndex(indexPath.row); TimerHelper.saveTimers(_timers)
+            _timers.removeAtIndex(indexPath.row);
+            TimerHelper.saveTimers(_timers)
+            NotificationHelper.setLocalNotifications(_timers)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
