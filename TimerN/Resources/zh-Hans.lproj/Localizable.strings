@@ -6,9 +6,11 @@
  Copyright © 2016 Xinhu Liu. All rights reserved.
  */
 
+"OK" = "好";
+"Cancel" = "取消";
+
 "Rename" = "重命名";
 "Details..." = "详情...";
-"Cancel" = "取消";
 
 "Start" = "开始";
 "Pause" = "暂停";
@@ -21,3 +23,4 @@
 "FINISHED" = "已停止";
 
 "Timer '%@' runs out!" = "'%@'时间到！";
+"To get you informed when a timer runs out, please allow our notifications." = "为了能在倒计时结束时收到提醒，请允许我们的通知。";

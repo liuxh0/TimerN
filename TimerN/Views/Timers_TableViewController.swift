@@ -28,6 +28,23 @@ class Timers_TableViewController: UITableViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey(AppDelegate.notificationIsRegisteredKey) == false {
+            
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("To get you informed when a timer runs out, please allow our notifications.", comment: ""), preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (aa: UIAlertAction) -> Void in
+                let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound, .Badge], categories: nil)
+                UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+            }
+            alert.addAction(okAction)
+            presentViewController(alert, animated: true, completion: nil)
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: AppDelegate.notificationIsRegisteredKey)
+        }
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         

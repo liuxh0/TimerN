@@ -32,6 +32,7 @@ class NotificationHelper {
         
         notification.fireDate = NSDate(timeIntervalSinceNow: Double(timer.getLeftSeconds()))
         notification.alertBody = String(format: NSLocalizedString("Timer '%@' runs out!", comment: ""), timer.name)
+        notification.soundName = UILocalNotificationDefaultSoundName
         
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
