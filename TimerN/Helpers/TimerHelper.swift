@@ -10,9 +10,7 @@ import UIKit
 
 class TimerHelper {
     
-    private static let _archiveURLOfTimers = NSFileManager()
-        .URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-        .URLByAppendingPathComponent("timers")
+    private static let _archiveURLOfTimers = AppDelegate.archiveURLOfTimers
 
     class func saveTimers(timers: [Timer]) {
         

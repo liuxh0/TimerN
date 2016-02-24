@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // Keys for NSUserDefaults
-    static let notificationIsRegisteredKey = "notificationIsRegisteredKey"
+    static let keyOfNotificationIsRegistered = "NOTIFICATION_REGISTERED"
+    
+    // URLs for NSKeyedArchiver
+    static let archiveURLOfTimers = NSFileManager()
+        .URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+        .URLByAppendingPathComponent("timers")
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
