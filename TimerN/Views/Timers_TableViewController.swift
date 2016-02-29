@@ -37,11 +37,11 @@ class Timers_TableViewController: UITableViewController {
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (aa: UIAlertAction) -> Void in
                 let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound, .Badge], categories: nil)
                 UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+                
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: self._keyOfNotificationIsRegistered)
             }
             alert.addAction(okAction)
             presentViewController(alert, animated: true, completion: nil)
-            
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: _keyOfNotificationIsRegistered)
         }
     }
     
