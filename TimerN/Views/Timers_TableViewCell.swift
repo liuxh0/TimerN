@@ -21,8 +21,10 @@ class Timers_TableViewCell: UITableViewCell {
     
     @IBOutlet weak var Label_timerName: UILabel!
     @IBOutlet weak var Label_timerStatus: UILabel!
-    @IBOutlet weak var Label_timerMiniute: UILabel!
-    @IBOutlet weak var Label_timerSecond: UILabel!
+    @IBOutlet weak var Label_minute1: UILabel!
+    @IBOutlet weak var Label_minute2: UILabel!
+    @IBOutlet weak var Label_second1: UILabel!
+    @IBOutlet weak var Label_second2: UILabel!
     
     // MARK: Methods
     
@@ -50,8 +52,13 @@ class Timers_TableViewCell: UITableViewCell {
         let leftSeconds = _timer!.getLeftSeconds()
         let leftMinutesSeconds = Timer.convertSecondsToMinutesSeconds(leftSeconds)
         
-        Label_timerMiniute.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.minutes)
-        Label_timerSecond.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.seconds)
+        let minuteString = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.minutes)
+        let secondString = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.seconds)
+        
+        Label_minute1.text = String(minuteString[minuteString.startIndex])
+        Label_minute2.text = String(minuteString[minuteString.endIndex.predecessor()])
+        Label_second1.text = String(secondString[secondString.startIndex])
+        Label_second2.text = String(secondString[secondString.endIndex.predecessor()])
         setTimerStatusLabel(_timer!.getStatus(), label: Label_timerStatus)
     }
     

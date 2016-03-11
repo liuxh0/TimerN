@@ -186,4 +186,12 @@ class Timers_TableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        
+        let timerToMove = _timers[sourceIndexPath.row]
+        _timers.removeAtIndex(sourceIndexPath.row)
+        _timers.insert(timerToMove, atIndex: destinationIndexPath.row)
+        TimerHelper.saveTimers(_timers)
+    }
+    
 }
