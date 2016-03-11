@@ -53,7 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == .Active {
             let alertController = UIAlertController(title: nil, message: notification.alertBody, preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+            
+            let currentViewController = (window!.rootViewController as! UINavigationController).visibleViewController!
+            currentViewController.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
