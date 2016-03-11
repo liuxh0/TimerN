@@ -9,23 +9,21 @@
 import UIKit
 
 class Timers_TableViewController: UITableViewController {
+    
+    // MARK: Properties
+    
+    private let _keyOfNotificationIsRegistered = AppDelegate.keyOfNotificationIsRegistered
+    private let _tableViewCellIdentifier = "Timers_TableViewCell"
+    
+    private var _timers: [Timer] = []
+    
+    // MARK: Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = editButtonItem()
-        
         _timers = TimerHelper.loadTimers()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        updateCellContent()
-        
-        if tableView.editing == false {
-            startUpdateCellContentPeriodically()
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -33,37 +31,18 @@ class Timers_TableViewController: UITableViewController {
         
         if NSUserDefaults.standardUserDefaults().boolForKey(_keyOfNotificationIsRegistered) == false {
             
-            let alert = UIAlertController(title: nil, message: NSLocalizedString("To get you informed when a timer runs out, please allow our notifications.", comment: ""), preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (aa: UIAlertAction) -> Void in
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("We want to inform you when a timer runs out. Please allow our notifications.", comment: ""), preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (_: UIAlertAction) -> Void in
                 let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound, .Badge], categories: nil)
                 UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-                
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: self._keyOfNotificationIsRegistered)
             }
             alert.addAction(okAction)
             presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if tableView.editing == false {
-            stopUpdateCellContentPeriodically()
-        }
-    }
-        
-    //
-    // MARK: Property
-    
-    private let _keyOfNotificationIsRegistered = AppDelegate.keyOfNotificationIsRegistered
-    
-    private var _timers: [Timer] = []
 
-    private var _updateTimer: NSTimer?
-
-    //
-    // MARK: Action
+    // MARK: Actions
     
     @IBAction func addTimer(sender: AnyObject) {
         
@@ -74,38 +53,18 @@ class Timers_TableViewController: UITableViewController {
     @IBAction func unwindFromSelectTimerDuration(sender: UIStoryboardSegue) {
         
         if let sourceVC = sender.sourceViewController as? SelectTimerDuration_ViewController {
-            
             let timer = sourceVC.getResult()
             
-            let newIndexPath = NSIndexPath(forRow: _timers.count, inSection: 0)
             _timers.append(timer)
             TimerHelper.saveTimers(_timers)
             NotificationHelper.setLocalNotifications(_timers)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            
+            let rowIndexPath = NSIndexPath(forRow: _timers.count - 1, inSection: 0)
+            tableView.insertRowsAtIndexPaths([rowIndexPath], withRowAnimation: .Bottom)
         }
     }
     
-    //
-    // MARK: Method
-    
-    private func startUpdateCellContentPeriodically() {
-        
-        _updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("updateCellContent"), userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(_updateTimer!, forMode: NSRunLoopCommonModes)
-    }
-    
-    private func stopUpdateCellContentPeriodically() {
-        
-        _updateTimer?.invalidate()
-    }
-    
-    func updateCellContent() {
-        
-        tableView.reloadData()
-    }
-    
-    //
-    // MARK: - Table view data source
+    // MARK: Table view
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -114,10 +73,8 @@ class Timers_TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let timer = _timers[indexPath.row]
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(Timers_TableViewCell.CellIdentifier, forIndexPath: indexPath) as! Timers_TableViewCell
-        cell.prepareUIForTimer(timer)
+        let cell = tableView.dequeueReusableCellWithIdentifier(_tableViewCellIdentifier, forIndexPath: indexPath) as! Timers_TableViewCell
+        cell.use(_timers[indexPath.row])
         
         return cell
     }
@@ -129,24 +86,24 @@ class Timers_TableViewController: UITableViewController {
         
         let alertController = UIAlertController(title: nil, message: timer.name, preferredStyle: .ActionSheet)
         
-        let operateAction = UIAlertAction(title: getOperateActionTitle(timerStatus), style: .Destructive) { (aa: UIAlertAction) -> Void in
+        let operateAction = UIAlertAction(title: getOperateActionTitle(timerStatus), style: .Destructive) { (_: UIAlertAction) -> Void in
             self.operateTimer(timer, originalTimerStatus: timerStatus)
             TimerHelper.saveTimers(self._timers)
             NotificationHelper.setLocalNotifications(self._timers)
         }
         alertController.addAction(operateAction)
         
-        let renameAction = UIAlertAction(title: NSLocalizedString("Rename", comment: ""), style: .Default) { (aa: UIAlertAction) -> Void in
-            self.showRenameAlertController(timer)
+        let renameAction = UIAlertAction(title: NSLocalizedString("Rename", comment: ""), style: .Default) { (_: UIAlertAction) -> Void in
+            self.showRenameAlertController(timer, indexPath: indexPath)
         }
         alertController.addAction(renameAction)
         
-        let moreAction = UIAlertAction(title: NSLocalizedString("Details...", comment: ""), style: .Default) { (aa: UIAlertAction) -> Void in
+        let showDetailAction = UIAlertAction(title: NSLocalizedString("Details...", comment: ""), style: .Default) { (_: UIAlertAction) -> Void in
             let vc = UIStoryboard(name: "TimerDetail", bundle: nil).instantiateInitialViewController()! as! TimerDetail_ViewController
             vc.prepare(timer, timers: self._timers)
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        alertController.addAction(moreAction)
+        alertController.addAction(showDetailAction)
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
@@ -167,18 +124,14 @@ class Timers_TableViewController: UITableViewController {
     private func operateTimer(timer: Timer, originalTimerStatus: TimerStatus) {
         
         switch originalTimerStatus {
-        case .Reset:
-            timer.run()
-        case .Running:
-            timer.pause()
-        case .Paused:
-            timer.run()
-        case .Finished:
-            timer.reset()
+        case .Reset:    timer.run()
+        case .Running:  timer.pause()
+        case .Paused:   timer.run()
+        case .Finished: timer.reset()
         }
     }
     
-    private func showRenameAlertController(timer: Timer) {
+    private func showRenameAlertController(timer: Timer, indexPath: NSIndexPath) {
         
         let renameAC = UIAlertController(title: NSLocalizedString("Rename", comment: "") + " \(timer.name)", message: nil, preferredStyle: .Alert)
         
@@ -188,12 +141,15 @@ class Timers_TableViewController: UITableViewController {
             nameTextField = textField
         }
         
-        let renameAction = UIAlertAction(title: NSLocalizedString("Rename", comment: ""), style: .Default, handler: { (aa: UIAlertAction) -> Void in
+        let renameAction = UIAlertAction(title: NSLocalizedString("Rename", comment: ""), style: .Default, handler: { (_: UIAlertAction) -> Void in
             let newName = nameTextField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             if (newName != "") {
                 timer.name = nameTextField!.text!
                 TimerHelper.saveTimers(self._timers)
                 NotificationHelper.setLocalNotifications(self._timers)
+                
+                let tableViewCell = self.tableView.cellForRowAtIndexPath(indexPath) as! Timers_TableViewCell
+                tableViewCell.use(timer)
             }
         })
         renameAC.addAction(renameAction)
@@ -221,20 +177,13 @@ class Timers_TableViewController: UITableViewController {
             _timers.removeAtIndex(indexPath.row);
             TimerHelper.saveTimers(_timers)
             NotificationHelper.setLocalNotifications(_timers)
+            
+            let tableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! Timers_TableViewCell
+            tableViewCell.abondon()
+            
+            // The following operation must be after operations above.
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
-    }
-    
-    override func setEditing(editing: Bool, animated: Bool) {
-        
-        if editing == true {
-            stopUpdateCellContentPeriodically()
-        }
-        else {
-            startUpdateCellContentPeriodically()
-        }
-        
-        super.setEditing(editing, animated: animated)
     }
     
 }

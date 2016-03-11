@@ -9,42 +9,50 @@
 import UIKit
 
 class Timers_TableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    // MARK: Properties
     
-    // MARK: Property
+    private var _timer: Timer?
     
-    static let CellIdentifier = "Timers_TableViewCell"
+    private var _refreshTimer: NSTimer?
+    private let _refreshTimeInterval = 0.3
     
-    
-    // MARK: Outlet
+    // MARK: Outlets
     
     @IBOutlet weak var Label_timerName: UILabel!
     @IBOutlet weak var Label_timerStatus: UILabel!
     @IBOutlet weak var Label_timerMiniute: UILabel!
     @IBOutlet weak var Label_timerSecond: UILabel!
     
+    // MARK: Methods
     
-    // MARK: Method
-    
-    func prepareUIForTimer(timer: Timer) {
-    
-        let status = timer.getStatus()
-        let leftMinutesSeconds = Timer.convertSecondsToMinutesSeconds(timer.getLeftSeconds())
+    func use(timer: Timer) {
         
-        Label_timerName.text = timer.name
+        _timer = timer
+        
+        if _refreshTimer == nil {
+            _refreshTimer = NSTimer.scheduledTimerWithTimeInterval(_refreshTimeInterval, target: self, selector: Selector("refreshCellContents"), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(_refreshTimer!, forMode: NSRunLoopCommonModes)
+        }
+        
+        Label_timerName.text = _timer!.name
+        refreshCellContents()
+    }
+    
+    func abondon() {
+        
+        _timer = nil
+        _refreshTimer?.invalidate()
+    }
+    
+    func refreshCellContents() {
+        
+        let leftSeconds = _timer!.getLeftSeconds()
+        let leftMinutesSeconds = Timer.convertSecondsToMinutesSeconds(leftSeconds)
+        
         Label_timerMiniute.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.minutes)
         Label_timerSecond.text = Timer.convertNumberToTwoDigitString(leftMinutesSeconds.seconds)
-        setTimerStatusLabel(status, label: Label_timerStatus)
+        setTimerStatusLabel(_timer!.getStatus(), label: Label_timerStatus)
     }
     
     private func setTimerStatusLabel(status: TimerStatus, label: UILabel) {
@@ -52,4 +60,5 @@ class Timers_TableViewCell: UITableViewCell {
         label.text = TimerHelper.getTextFromStatus(status)
         label.textColor = TimerHelper.getTextColorFromStatus(status)
     }
+    
 }
