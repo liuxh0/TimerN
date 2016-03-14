@@ -84,7 +84,11 @@ class Timers_TableViewController: UITableViewController {
         let timer = _timers[indexPath.row]
         let timerStatus = timer.getStatus()
         
-        let alertController = UIAlertController(title: nil, message: timer.name, preferredStyle: .ActionSheet)
+        let timerDuration = Timer.convertSecondsToMinutesSeconds(timer.durationInSeconds)
+        let minuteString = Timer.convertNumberToTwoDigitString(timerDuration.minutes)
+        let secondString = Timer.convertNumberToTwoDigitString(timerDuration.seconds)
+        
+        let alertController = UIAlertController(title: nil, message: NSLocalizedString("\(timer.name) (\(minuteString):\(secondString))", comment: ""), preferredStyle: .ActionSheet)
         
         let operateAction = UIAlertAction(title: getOperateActionTitle(timerStatus), style: .Destructive) { (_: UIAlertAction) -> Void in
             self.operateTimer(timer, originalTimerStatus: timerStatus)
@@ -111,9 +115,9 @@ class Timers_TableViewController: UITableViewController {
         presentViewController(alertController, animated: true, completion: nil)
     }
     
-    private func getOperateActionTitle(timerStauts: TimerStatus) -> String {
+    private func getOperateActionTitle(timerStatus: TimerStatus) -> String {
         
-        switch timerStauts {
+        switch timerStatus {
         case .Reset:    return NSLocalizedString("Start", comment: "")
         case .Running:  return NSLocalizedString("Pause", comment: "")
         case .Paused:   return NSLocalizedString("Resume", comment: "")
