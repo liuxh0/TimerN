@@ -15,7 +15,7 @@ class Timers_TableViewCell: UITableViewCell {
     private var _timer: Timer?
     
     private var _refreshTimer: NSTimer?
-    private let _refreshTimeInterval = 0.3
+    private let _refreshTimeInterval = 0.1
     
     // MARK: Outlets
     

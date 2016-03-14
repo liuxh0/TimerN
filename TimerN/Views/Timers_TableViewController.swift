@@ -117,7 +117,7 @@ class Timers_TableViewController: UITableViewController {
         case .Reset:    return NSLocalizedString("Start", comment: "")
         case .Running:  return NSLocalizedString("Pause", comment: "")
         case .Paused:   return NSLocalizedString("Resume", comment: "")
-        case .Finished: return NSLocalizedString("Reset", comment: "")
+        case .Finished: return NSLocalizedString("Start again", comment: "")
         }
     }
     
@@ -127,7 +127,7 @@ class Timers_TableViewController: UITableViewController {
         case .Reset:    timer.run()
         case .Running:  timer.pause()
         case .Paused:   timer.run()
-        case .Finished: timer.reset()
+        case .Finished: timer.reset(); timer.run()
         }
     }
     
