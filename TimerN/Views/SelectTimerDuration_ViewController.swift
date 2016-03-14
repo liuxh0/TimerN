@@ -10,6 +10,27 @@ import UIKit
 
 class SelectTimerDuration_ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
+    // MARK: Data exchange
+    
+    func getResult() -> Timer {
+        
+        return _timer!
+    }
+    
+    // MARK: Properties
+    
+    private var _timer: Timer?
+    
+    private let _pickerRounds = 20
+    
+    // MARK: Outlets
+    
+    @IBOutlet weak var Button_saveAndRun: UIBarButtonItem!
+    @IBOutlet weak var Button_save: UIBarButtonItem!
+    @IBOutlet weak var PickerView_timerDuration: UIPickerView!
+    
+    // MARK: Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,44 +41,74 @@ class SelectTimerDuration_ViewController: UIViewController, UIPickerViewDataSour
         pickerView(PickerView_timerDuration, didSelectRow: 0, inComponent: 1)
         pickerView(PickerView_timerDuration, didSelectRow: 0, inComponent: 2)
     }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let selectedRow = PickerView_timerDuration.selectedRowInComponent(1)
-        PickerView_timerDuration.selectRow(selectedRow + 10, inComponent: 1, animated: true)
-    }
     
-    //
-    // MARK: Data exchange
-    
-    func getResult() -> Timer {
-        
-        return _timer!
-    }
-    
-    //
-    // MARK: Property
-    
-    private var _timer: Timer?
-    
-    private let _pickerRounds = 20
-    
-    //
-    // MARK: Outlet
-    
-    @IBOutlet weak var PickerView_timerDuration: UIPickerView!
-    
-    //
-    // MARK: Action
+    // MARK: Actions
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    //
-    // MARK: - UIPickerViewDataSource, UIPickerViewDelegate
+    @IBAction func addOneMinute(sender: UIButton) {
+        
+        addMinutesWithAnimation(1)
+    }
+    
+    @IBAction func addThreeMinutes(sender: UIButton) {
+        
+        addMinutesWithAnimation(3)
+    }
+    
+    @IBAction func addFiveMinutes(sender: UIButton) {
+        
+        addMinutesWithAnimation(5)
+    }
+    
+    @IBAction func addTenMinutes(sender: UIButton) {
+        addMinutesWithAnimation(10)
+    }
+    
+    private func addMinutesWithAnimation(minutes: Int) {
+        
+        let selectedMinuteRow = PickerView_timerDuration.selectedRowInComponent(1)
+        
+        let selectedMinutes = selectedMinuteRow % 60
+        if selectedMinutes + minutes >= 60 {
+            let hoursToAdd = (selectedMinutes + minutes) / 60
+            
+            let selectedHours = PickerView_timerDuration.selectedRowInComponent(0)
+            let maxHours = PickerView_timerDuration.numberOfRowsInComponent(0) - 1
+            
+            if selectedHours + hoursToAdd > maxHours {
+                PickerView_timerDuration.selectRow(maxHours + 1, inComponent: 0, animated: true)
+            } else {
+                PickerView_timerDuration.selectRow(selectedHours + hoursToAdd, inComponent: 0, animated: true)
+            }
+        }
+        
+        PickerView_timerDuration.selectRow(selectedMinuteRow + minutes, inComponent: 1, animated: true)
+        
+        enableOrDisableSaveButton()
+    }
+    
+    // MARK: Methods
+    
+    private func enableOrDisableSaveButton() {
+        
+        let selectedHours = PickerView_timerDuration.selectedRowInComponent(0)
+        let selectedMinutes = PickerView_timerDuration.selectedRowInComponent(1) % 60
+        let selectedSeconds = PickerView_timerDuration.selectedRowInComponent(2) % 60
+        
+        if selectedHours == 0 && selectedMinutes == 0 && selectedSeconds == 0 {
+            Button_save.enabled = false
+            Button_saveAndRun.enabled = false
+        } else {
+            Button_save.enabled = true
+            Button_saveAndRun.enabled = true
+        }
+    }
+
+    // MARK: UIPickerViewDataSource, UIPickerViewDelegate
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
@@ -86,18 +137,17 @@ class SelectTimerDuration_ViewController: UIViewController, UIPickerViewDataSour
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        if component == 0 {
-            return
+        if component != 0 {
+            let middleRound = _pickerRounds / 2
+            let rowInMiddleRound = middleRound * 60 + row % 60
+            
+            pickerView.selectRow(rowInMiddleRound, inComponent: component, animated: false)
         }
         
-        let middleRound = _pickerRounds / 2
-        let rowInMiddleRound = middleRound * 60 + row % 60
-        
-        pickerView.selectRow(rowInMiddleRound, inComponent: component, animated: false)
+        enableOrDisableSaveButton()
     }
     
-    //
-    // MARK: - Navigation
+    // MARK: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         

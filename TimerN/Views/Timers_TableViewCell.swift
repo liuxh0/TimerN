@@ -32,10 +32,9 @@ class Timers_TableViewCell: UITableViewCell {
         
         _timer = timer
         
-        if _refreshTimer == nil {
-            _refreshTimer = NSTimer.scheduledTimerWithTimeInterval(_refreshTimeInterval, target: self, selector: Selector("refreshCellContents"), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(_refreshTimer!, forMode: NSRunLoopCommonModes)
-        }
+        _refreshTimer?.invalidate()
+        _refreshTimer = NSTimer.scheduledTimerWithTimeInterval(_refreshTimeInterval, target: self, selector: Selector("refreshCellContents"), userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(_refreshTimer!, forMode: NSRunLoopCommonModes)
         
         Label_timerName.text = _timer!.name
         refreshCellContents()
